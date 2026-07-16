@@ -1,4 +1,6 @@
 import random
+import json
+import os
 
 lette1 = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4,
           'f': 5, 'g': 6, 'h': 7, 'i': 8, 'j': 9,
@@ -42,9 +44,27 @@ def key(inkey):
     # print(lette2[cenkey])
 
 def projkey():
-    print("Создание виртуальной базы данных, пожалуйста введите название своей БД")
-    crdb = str(input("> "))
-    dbf = open(f"{crdb}.rnf", "w+")
+    ch = str(input("Выберите что хотите сделать: [1]-Создать вБД [2]-Открыть вБД [3]-Удалить вБД: "))
+    if ch == '1':
+        print("Создание виртуальной базы данных, пожалуйста введите название своей БД")
+        crdb = str(input("dbname> "))
+        print("Теперь выберите объем вмещаемых шифров [0..256..] (вы можете выбрать сколько влезет в ваш компьютер)")
+        vsh = int(input("cap>"))
+        with open(f"{crdb}.json", "w") as dbf:
+            s = '{'
+            c = '}'
+            dbf.write(f'{s}\n\t"name": "{crdb}",\n\t"capac": "{vsh}"\n{c}')
+    if ch == '2':
+        opf = str(input("Введите название открываемого вБД: "))
+        with open(f"{opf}.json", "r") as off:
+            op_data = json.load(off)
+
+        print(f"\nНазвание вБД:               {op_data["name"]}")
+        print(f"Кол-во вмещаемых шифров:    {op_data["capac"]}\n")
+
+    if ch == '3':
+        delf = str(input("Введите путь к удаляемому файл: "))
+        os.remove(delf)
 
 def hash(inhash):
     inhash
