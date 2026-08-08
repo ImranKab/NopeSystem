@@ -241,7 +241,7 @@ while True:
 
     if user == "hash":
         print("Хеширование данных с помощью RHM16")
-        hash("rhodolabimranmaratnopesystemrhodocmp")
+        hash(str(input("Введите входные данные: ")))
 
     # Процесс.Антивирус 
     if user == "nope-av":
