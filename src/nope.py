@@ -4,7 +4,6 @@ import json
 import os
 import sys
 from nopeapi import nopedb
-import keyboard
 
 """
 RhodoLab NopeSystem.
@@ -39,6 +38,8 @@ lette3 = {0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e',
           15: 'p', 16: 'q', 17: 'r', 18: 's', 19: 't', 20: 'u', 21: 'v',
           22: 'w', 23: 'x', 24: 'y', 25: 'z'}
 
+sym = {0: '$', 1: '#', 2: '&', 3: '@', 4: ':', 5: '%', 6: '*', 7: '?', 8: '!'}
+
 edb = {'py': "Файл языка программирования Python", 'xlsx': "Файл таблицы Excel",
        'txt': "Стандартный текстовый файл", 'cpp': "Файл языка программирования C++",
        'html': "Файл браузерной веб-страницы", 'dll': "Файл динамической библиотеки Windows"}
@@ -53,10 +54,12 @@ def key(inkey):
         lcenkey = lette1[linkey[i]] + 2
 
         out.append(lette2[lcenkey])
-        out.append(str(random.randint(0, 16)))
+        out.append(str(sym[random.randint(0, 8)]))
 
     st = ''
     key_w = st.join(out)
+    with open("nopecache", "a") as fcache:
+        fcache.write(f"{key_w}\n")
     print(f"Ваш шифр: {key_w}")
 
 def avirus():
@@ -247,8 +250,13 @@ while True:
     if user == "nope-av":
         avirus()
 
+    # Процесс.Система_аккаунтов (с использованием хеширования RHM16)
+    if user == "account":
+        pass
+
     #Процесс.Выход
     if user == "exit":
+        os.remove("nopecache")
         break
 
     if user == "clear":
@@ -256,6 +264,7 @@ while True:
 
     if user == "debug":
         print(sys.getsizeof(user))
+        print(os.path.getsize("nopecache"))
 
     # Процесс.Безделушки
     if user == "random":
